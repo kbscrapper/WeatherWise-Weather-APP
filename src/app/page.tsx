@@ -17,7 +17,7 @@ import { useToast } from "@/hooks/use-toast";
 import { AlertCircle, Loader2 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 
-const API_KEY_CONFIGURED = process.env.NEXT_PUBLIC_OPENWEATHERMAP_API_KEY && process.env.NEXT_PUBLIC_OPENWEATHERMAP_API_KEY !== "YOUR_OPENWEATHERMAP_API_KEY";
+const API_KEY_CONFIGURED = process.env.NEXT_PUBLIC_OPENWEATHERMAP_API_KEY && process.env.NEXT_PUBLIC_OPENWEATHERMAP_API_KEY !== "YOUR_OPENWEATHERMAP_API_KEY_PLACEHOLDER";
 
 export default function WeatherPage() {
   const [weatherData, setWeatherData] = useState<AppWeatherData | null>(null);
@@ -28,11 +28,10 @@ export default function WeatherPage() {
   const fetchWeatherData = useCallback(async (location: string | Coordinates) => {
     setLoading(true);
     setError(null);
-    setWeatherData(null); // Clear previous data
+    setWeatherData(null); 
 
     if (!API_KEY_CONFIGURED) {
-      setError("OpenWeatherMap API key is not configured. Please set NEXT_PUBLIC_OPENWEATHERMAP_API_KEY in your .env.local file. Showing sample data.");
-      // Load sample data if API key is not configured
+      setError("OpenWeatherMap API key is not configured. Please set NEXT_PUBLIC_OPENWEATHERMAP_API_KEY in your .env file. Showing sample data.");
       setWeatherData({
         current: {
           coord: { lat: 51.5074, lon: -0.1278 },
@@ -89,10 +88,8 @@ export default function WeatherPage() {
     }
   }, [toast]);
 
-  // Attempt to get geolocation on initial load (optional, can be user-triggered only)
   useEffect(() => {
-    // You could add logic here to fetch default location or user's last known location
-    // For now, we wait for user interaction.
+    // Initial load logic can be added here if needed
   }, []);
 
   return (
@@ -101,7 +98,7 @@ export default function WeatherPage() {
         <h1 className="text-5xl font-headline font-bold text-primary drop-shadow-md">
           WeatherWise
         </h1>
-        <p className="text-lg text-foreground/80 mt-2">
+        <p className="text-lg text-foreground/90 mt-2">
           Your friendly weather companion with AI tips
         </p>
       </header>
@@ -112,7 +109,7 @@ export default function WeatherPage() {
         {loading && (
           <div className="flex justify-center items-center mt-10">
             <Loader2 className="h-12 w-12 animate-spin text-primary" />
-            <p className="ml-4 text-xl">Fetching weather data...</p>
+            <p className="ml-4 text-xl text-foreground/80">Fetching weather data...</p>
           </div>
         )}
 
@@ -129,9 +126,9 @@ export default function WeatherPage() {
         )}
         
         {!loading && !error && !weatherData && (
-          <Card className="mt-8 bg-primary/5 animate-fade-in">
+          <Card className="mt-8 bg-card/80 backdrop-blur-sm animate-fade-in">
             <CardContent className="p-10 text-center">
-              <h2 className="text-xl font-semibold mb-2">Welcome to WeatherWise!</h2>
+              <h2 className="text-xl font-semibold mb-2 text-foreground">Welcome to WeatherWise!</h2>
               <p className="text-muted-foreground">
                 Enter a city name or use your current location to get the latest weather updates and AI-powered tips.
               </p>

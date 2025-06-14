@@ -33,18 +33,17 @@ const WeatherTipCard: React.FC<WeatherTipCardProps> = ({ currentWeather }) => {
         } catch (err) {
           console.error("Error fetching AI weather tip:", err);
           setError("Could not fetch a weather tip at this time.");
-          setTip(null); // Clear previous tip on error
+          setTip(null); 
         } finally {
           setLoading(false);
         }
       };
       fetchTip();
     } else {
-      setTip(null); // Clear tip if no weather data
+      setTip(null); 
     }
   }, [currentWeather]);
 
-  // Unique key for animation reset
   const tipKey = currentWeather ? `${currentWeather.dt}-${currentWeather.name}` : 'no-weather';
 
   return (
@@ -55,16 +54,16 @@ const WeatherTipCard: React.FC<WeatherTipCardProps> = ({ currentWeather }) => {
           AI Weather Tip
         </CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="min-h-[60px]">
         {loading && (
-          <div className="space-y-2">
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-3/4" />
+          <div className="space-y-2 pt-1">
+            <Skeleton className="h-4 w-full bg-muted/50" />
+            <Skeleton className="h-4 w-3/4 bg-muted/50" />
           </div>
         )}
-        {error && <p className="text-destructive">{error}</p>}
+        {error && <p className="text-destructive text-sm">{error}</p>}
         {!loading && !error && tip && (
-          <p key={tipKey} className="text-sm animate-slide-in-up opacity-0 [--slide-in-delay:300ms]">
+          <p key={tipKey} className="text-sm text-foreground/90 animate-slide-in-up opacity-0 [--slide-in-delay:300ms]">
             {tip}
           </p>
         )}
