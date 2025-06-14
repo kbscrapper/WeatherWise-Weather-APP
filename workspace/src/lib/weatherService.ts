@@ -1,12 +1,14 @@
 import type { CurrentWeatherData, ForecastItem, ProcessedForecastDay, WeatherApiResponse } from '@/types/weather';
 import { format } from 'date-fns';
 
-const API_KEY = process.env.NEXT_PUBLIC_OPENWEATHERMAP_API_KEY || "6931b32cb42e1eba07e047a59d538cf9"; // Replace with your actual key or ensure it's in .env.local
-const BASE_URL = 'https://api.openweathermap.org/data/2.5';
+const PLACEHOLDER_API_KEY = "YOUR_OPENWEATHERMAP_API_KEY"; // Standard placeholder
+const API_KEY = process.env.NEXT_PUBLIC_OPENWEATHERMAP_API_KEY || PLACEHOLDER_API_KEY;
 
-if (API_KEY === "6931b32cb42e1eba07e047a59d538cf9") {
-  console.warn("OpenWeatherMap API key is not configured. Please set NEXT_PUBLIC_OPENWEATHERMAP_API_KEY in your .env.local file.");
+if (API_KEY === PLACEHOLDER_API_KEY) {
+  console.warn(`OpenWeatherMap API key is not configured or is using the placeholder value. Please set NEXT_PUBLIC_OPENWEATHERMAP_API_KEY in your .env file with a valid key. The application may be using a fallback key or showing sample data if this is the case. Key detected by service: ${API_KEY}`);
 }
+
+const BASE_URL = 'https://api.openweathermap.org/data/2.5';
 
 const fetchData = async <T>(endpoint: string, params: Record<string, string | number>): Promise<T> => {
   const queryParams = new URLSearchParams({
