@@ -2,7 +2,7 @@
 import type { CurrentWeatherData, ForecastItem, ProcessedForecastDay, WeatherApiResponse } from '@/types/weather';
 import { format } from 'date-fns';
 
-const PLACEHOLDER_API_KEY = "YOUR_OPENWEATHERMAP_API_KEY"; // Standard placeholder
+const PLACEHOLDER_API_KEY = "YOUR_OPENWEATHERMAP_API_KEY"; // Standard placeholder {add here}
 const API_KEY = process.env.NEXT_PUBLIC_OPENWEATHERMAP_API_KEY || PLACEHOLDER_API_KEY;
 
 if (API_KEY === PLACEHOLDER_API_KEY) {
